@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "advanced-python-project"
+name = "py-scripts"
 version = "0.1.0"
 description = "A Python project for handling images, documents, AI models, and PDFs."
 authors = ["Your Name <your.email@example.com>"]
@@ -20,9 +20,9 @@ openpyxl = "^3.0.10"
 python-pptx = "^0.6.21"
 
 # AI Libraries
-openai = "^0.27.0"  # For ChatGPT and GPT models
-anthropic = "^0.3.0"  # For Claude AI
-transformers = "^4.25.0"  # Hugging Face transformer models
+openai = "^1.0.0"  # For ChatGPT and GPT models
+anthropic = "^0.18.0"  # For Claude AI
+transformers = "^4.38.0"  # Hugging Face transformer models
 
 # PDF Manipulation
 PyPDF2 = "^1.26.0"
