@@ -127,9 +127,13 @@ prs.save("presentation.pptx")
 1. openai
 chatgpt
 ```python
+from dotenv import load_dotenv
+import os
 import openai
 
-openai.api_key = 'your-api-key'
+load_dotenv()
+
+openai.api_key = os.getenv("API_KEY_OPENAI")
 
 response = openai.Completion.create(
   model="text-davinci-003",
@@ -143,9 +147,12 @@ print(response.choices[0].text.strip())
 2. anthropic
 claude.ai
 ```python
+from dotenv import load_dotenv
+import os
 import anthropic
 
-client = anthropic.Client(api_key='your-api-key')
+anthropic_api_key = os.getenv("API_KEY_ANTHROPIC")
+client = anthropic.Client(api_key=anthropic_api_key)
 
 response = client.completion(
     prompt="What is the capital of France?",
