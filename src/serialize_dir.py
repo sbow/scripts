@@ -1,13 +1,28 @@
 #!/usr/bin/env python3
+
+#
+# serialize_dir.py
+#
+# December 2024, Shaun Bowman
+# Usage: `serialize_dir . results.json`
+# Install: `>sudo ln -s /home/shaun/git/github/scripts/src/serialize_dir.py /home/shaun/.local/bin/serialize-dir`
+#
+
 import os
 import json
 import sys
 from pathlib import Path
 import argparse
 
+# Directories to ignore
+ignore_directories = {'node_modules'}
+
 def is_hidden_path(path):
     """Check if any part of the path is hidden (starts with .)"""
     return any(part.startswith('.') for part in Path(path).parts)
+
+def is_ignore_path(path):
+    return any(part in ignore_directories for part in Path(path).parts)
 
 def serialize_dir(start_path='.'):
     # Initialize the result dictionary
@@ -18,8 +33,8 @@ def serialize_dir(start_path='.'):
     }
     
     # Extensions to read
-    target_extensions = {'.sh', '.toml', '.yml', '.py'}
-    
+    target_extensions = {'.sh', '.toml', '.yml', '.py', '.json', '.ts'}
+
     # Convert start_path to absolute path
     abs_start_path = os.path.abspath(start_path)
     
@@ -31,6 +46,9 @@ def serialize_dir(start_path='.'):
     for root, dirs, files in os.walk(abs_start_path):
         # Remove hidden directories
         dirs[:] = [d for d in dirs if not is_hidden_path(d)]
+
+        # Remove ignore directories
+        dirs[:] = [d for d in dirs if not is_ignore_path(d)]
         
         # Process current directory
         rel_path = os.path.relpath(root, abs_start_path)
